@@ -30,7 +30,9 @@ MindTwist is a captivating and stimulating mobile application designed to challe
 |No.| Names       | ID            | Section |
 |---|-------------|---------------|---------|
 |1  |Abel Begashaw| *ATE/8919/13  | 01      |
-|2  |Natan Amanuel| *ATE/----/13  | 02      |
-|3  |Naol Kumela  | *ATE/----/13  | 02      |
-|4  |Milko Shuma  | UGR/4707/13   |       |
+|2  |Natan Amanuel| *ATE/7142/13  | 02      |
+|3  |Naol Kumela  | *ATE/3173/13  | 02      |
+|4  |Milko Shuma  | UGR/4707/13   | 02      |
+
+#### Notice: *is to indicate that the student's new ID numbers are currently being processed due to admission.
 
