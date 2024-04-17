@@ -49,7 +49,7 @@ class Home extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/signin');
+                    Navigator.pushNamed(context, '/signup');
                   }, // Add sign-up functionality
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -74,7 +74,7 @@ class Home extends StatelessWidget {
                 const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, '/signin');
                   }, // Add sign-up functionality
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
