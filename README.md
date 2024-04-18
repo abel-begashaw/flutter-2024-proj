@@ -20,10 +20,6 @@ MindTwist is a captivating and stimulating mobile application designed to challe
    - Enable users to compete against themselves or other players to solve as many brain teasers as possible within a specified time limit.
    - Provide hints or solutions for users encountering difficulties with specific brain teasers, ensuring a smooth and enjoyable experience.
 
-4. Leaderboards and Achievements
-   - Implement dynamic leaderboards to track users' scores and rankings based on their performance in solving brain teasers.
-   - Reward users with achievements and badges for reaching milestones, completing challenges, or mastering specific categories of brain teasers.
-   - Foster a competitive and motivating environment that encourages users to enhance their problem-solving skills and engage with the app regularly.
 
 ### Team Members
 
