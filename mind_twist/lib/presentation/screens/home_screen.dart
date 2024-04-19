@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to Brain Teaser App!',
+              'Welcome to Brain Teaser',
               style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
