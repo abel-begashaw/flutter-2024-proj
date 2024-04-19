@@ -1,24 +1,41 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      // Navigate to other screens based on index
+      switch (index) {
+        case 0:
+          Navigator.pushNamed(context, '/home_screen'); // Navigate to HomeScreen
+          break;
+        case 1:
+          Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
+          break;
+        case 2:
+          Navigator.pushNamed(context, '/analytics'); // Navigate to AnalyticsScreen
+          break;
+        case 3:
+          // Navigate to ProfilePage (current screen)
+          break;
+        default:
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Your Scaffold contents here...
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
       body: Column(
         children: [
@@ -128,11 +145,11 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.category_rounded),
-            label: 'Statistics',
+            label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.question_mark_rounded),
-            label: 'Teasers',
+            icon: Icon(Icons.analytics_rounded),
+            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
@@ -140,11 +157,10 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
-        onTap: _onItemTapped,
-        backgroundColor: Colors.white10,
+        selectedItemColor: Colors.purple, // Change color as needed
+        backgroundColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
   }
