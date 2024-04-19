@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mind_twist/presentation/screens/analytics_screen.dart';
 import 'package:mind_twist/presentation/screens/home.dart';
 import 'package:mind_twist/presentation/screens/home_screen.dart';
 import 'package:mind_twist/presentation/screens/profile.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => const SignUpScreen(),
         '/profile': (context) => const ProfilePage(),
         '/home_screen': (context) => const HomeScreen(),
-        '/teaser': (context) => const TeaserScreen(),
+        '/analytics': (context) => const AnalyticsScreen(),
+        '/teaser': (context) => const TeasersScreen(),
       },
     );
   }
