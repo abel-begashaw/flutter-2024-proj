@@ -1,33 +1,106 @@
 import 'package:flutter/material.dart';
-import 'package:mind_twist/presentation/screens/analytics_screen.dart';
-import 'package:mind_twist/presentation/screens/home.dart';
-import 'package:mind_twist/presentation/screens/home_screen.dart';
-import 'package:mind_twist/presentation/screens/profile.dart';
-import 'package:mind_twist/presentation/screens/signIn.dart';
-import 'package:mind_twist/presentation/screens/signUp.dart';
-import 'package:mind_twist/presentation/screens/teaser_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-        '/signin': (context) => const SignInScreen(),
-        '/signup': (context) => const SignUpScreen(),
-        '/profile': (context) => const ProfilePage(),
-        '/home_screen': (context) => const HomeScreen(),
-        '/analytics': (context) => const AnalyticsScreen(),
-        '/teaser': (context) => const TeasersScreen(),
-      },
+    return Scaffold(
+      backgroundColor:
+          const Color.fromARGB(255, 120, 113, 170), // Purple background
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // App Title
+            const Text(
+              'MIND-TWIST',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Comic',
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Brain Image
+            Image.asset(
+              'assets/Images/brain.jpg', // Replace with your image path
+              width: MediaQuery.of(context).size.width,
+              height: 400,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 15),
+            // Slogan
+            const Text(
+              'Untangle Your Thoughts',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signup');
+                  }, // Add sign-up functionality
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent.withOpacity(0.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                const SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signin');
+                  }, // Add sign-up functionality
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent.withOpacity(0.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
