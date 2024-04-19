@@ -1,36 +1,43 @@
 import 'package:flutter/material.dart';
 
-class TeaserScreen extends StatefulWidget {
-  const TeaserScreen({
-    super.key,
-  });
+class TeasersScreen extends StatefulWidget {
+  const TeasersScreen({Key? key}) : super(key: key);
 
   @override
-  State<TeaserScreen> createState() => _TeaserScreenState();
+  State<TeasersScreen> createState() => _TeasersScreenState();
 }
 
-class _TeaserScreenState extends State<TeaserScreen> {
-  int _selectedIndex = 0;
+class _TeasersScreenState extends State<TeasersScreen> {
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      // Navigate to other screens based on index
+      switch (index) {
+        case 0:
+          Navigator.pushNamed(context, '/home_screen'); // Navigate to HomeScreen
+          break;
+        case 1:
+          // Navigate to TeasersScreen (current screen)
+          break;
+        case 2:
+          Navigator.pushNamed(context, '/analytics'); // Navigate to AnalyticsScreen
+          break;
+        case 3:
+          Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
+          break;
+        default:
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Your Scaffold contents here...
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 144, 134, 201),
-        title: const Text(
-          'Teasers',
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
+      
       body: Center(
         child: GridView.count(
           crossAxisCount: 2, // 2 columns
@@ -55,11 +62,11 @@ class _TeaserScreenState extends State<TeaserScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.category_rounded),
-            label: 'Statistics',
+            label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.question_mark_rounded),
-            label: 'Teasers',
+            icon: Icon(Icons.analytics_rounded),
+            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
@@ -67,15 +74,13 @@ class _TeaserScreenState extends State<TeaserScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
-        onTap: _onItemTapped,
-        backgroundColor: Colors.white10,
+        selectedItemColor: Colors.purple, // Change color as needed
+        backgroundColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
   }
-
   Widget _buildCategoryBox(String categoryName) {
     return Container(
       decoration: BoxDecoration(
