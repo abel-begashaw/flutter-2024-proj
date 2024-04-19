@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mind_twist/presentation/screens/home_screen.dart';
 import 'package:mind_twist/presentation/widgets/constants.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -127,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           backgroundColor: Colors.white,
         ),
-        onPressed: () => print('SignIn Button Pressed'),
+        onPressed: () => Navigator.pushReplacementNamed(context, '/home_screen'),
         child: const Text(
           'SIGN IN',
           style: TextStyle(
