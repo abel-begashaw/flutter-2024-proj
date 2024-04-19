@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.category_rounded),
-            label: 'Catagories',
+            label: 'Statistics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_rounded),
