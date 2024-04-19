@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 
-class QuizScreen extends StatelessWidget {
-  const QuizScreen({Key? key});
+class TeaserScreen extends StatefulWidget {
+  const TeaserScreen({
+    super.key,
+  });
+
+  @override
+  State<TeaserScreen> createState() => _TeaserScreenState();
+}
+
+class _TeaserScreenState extends State<TeaserScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 160, 148, 255),
-        title: const Text('Quiz'),
+        backgroundColor: Color.fromARGB(255, 144, 134, 201),
+        title: const Text(
+          'Teasers',
+          style: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
       ),
       body: Center(
         child: GridView.count(
@@ -27,31 +47,32 @@ class QuizScreen extends StatelessWidget {
           ],
         ),
       ),
-
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 160, 148, 255),
-        selectedItemColor: const Color.fromARGB(255, 195, 17, 142), // Set the selected item color
-        unselectedItemColor: const Color.fromARGB(255, 95, 106, 226), // Set the unselected item color
-        items: const [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 160, 148, 255),
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
-            label: 'Quiz',
+            icon: Icon(Icons.category_rounded),
+            label: 'Catagories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            label: 'Statistics',
+            icon: Icon(Icons.question_mark_rounded),
+            label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
         ],
-      )
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
+        onTap: _onItemTapped,
+        backgroundColor: Colors.white10,
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.white,
+      ),
     );
   }
 
@@ -64,10 +85,9 @@ class QuizScreen extends StatelessWidget {
       child: Center(
         child: Text(
           categoryName,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
-
 }
