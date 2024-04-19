@@ -109,15 +109,15 @@ class ProfilePage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
+            icon: Icon(Icons.quiz),
             label: 'Categories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.question_mark_rounded),
+            icon: Icon(Icons.analytics),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
