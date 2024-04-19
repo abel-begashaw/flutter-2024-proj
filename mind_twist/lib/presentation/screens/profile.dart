@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
-
-  @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +12,16 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(
             height: 60,
           ),
-          const Center(
+          Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Center(
-                  child: Text(
-                    "Profile",
-                    style: TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                Text(
+                  "Profile",
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 30),
@@ -47,9 +33,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 Text(
                   'Username',
                   style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -63,47 +50,38 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(
             height: 70,
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 35),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent.withOpacity(0.0),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: const Text(
-                  'Update',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ),
-          ),
           Padding(
-            padding: const EdgeInsets.only(right: 35),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 35),
-                child: ElevatedButton(
+            padding: const EdgeInsets.symmetric(horizontal: 35),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text(
+                    'Update',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent.withOpacity(0.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -119,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ],
@@ -132,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.category_rounded),
-            label: 'Catagories',
+            label: 'Categories',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_rounded),
@@ -143,12 +121,29 @@ class _ProfilePageState extends State<ProfilePage> {
             label: 'Profile',
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: 3,
         selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
-        onTap: _onItemTapped,
         backgroundColor: Colors.white10,
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: Colors.white,
+        onTap: (index) {
+          // Handle navigation based on index
+          switch (index) {
+            case 0:
+              // Navigate to Home
+              break;
+            case 1:
+              // Navigate to Categories
+              break;
+            case 2:
+              // Navigate to Teasers
+              break;
+            case 3:
+              // Already on Profile page
+              break;
+            default:
+          }
+        },
       ),
     );
   }
