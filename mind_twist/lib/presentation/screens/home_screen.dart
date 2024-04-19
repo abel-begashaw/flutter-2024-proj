@@ -1,62 +1,79 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget{
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      
-      body: const Center(
+      backgroundColor: const Color.fromARGB(255, 120, 113, 170),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Welcome to Quiz App!',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            const Text(
+              'Welcome to Brain Teaser App!',
+              style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
-              
-              onPressed: (null),
-              child: Text(
+              onPressed: () {},
+              child: const Text(
                 'Daily Twist',
-                style: TextStyle(fontSize: 18, color: Colors.white24),
+                style: TextStyle(
+                  fontSize: 18,
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Unleash Your Mind Every Day!',
-              style: TextStyle(fontSize: 20, color: Color.fromARGB(253, 255, 139, 67)),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],
         ),
       ),
-      
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 160, 148, 255),
-        selectedItemColor: const Color.fromARGB(255, 195, 17, 142), // Set the selected item color
-        unselectedItemColor: const Color.fromARGB(255, 95, 106, 226), // Set the unselected item color
-        items: const [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            backgroundColor: Color.fromARGB(255, 160, 148, 255),
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
-            label: 'Quiz',
+            icon: Icon(Icons.category_rounded),
+            label: 'Catagories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
-            label: 'Statistics',
+            icon: Icon(Icons.question_mark_rounded),
+            label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
+        onTap: _onItemTapped,
+        backgroundColor: Colors.white10,
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: Colors.white,
       ),
     );
   }
