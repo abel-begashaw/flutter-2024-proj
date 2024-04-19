@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +25,17 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(
             height: 60,
           ),
-          Center(
+          const Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Center(
+                  child: Text(
+                    "Profile",
+                    style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -33,10 +47,9 @@ class ProfilePage extends StatelessWidget {
                 Text(
                   'Username',
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -50,17 +63,18 @@ class ProfilePage extends StatelessWidget {
           const SizedBox(
             height: 70,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -76,12 +90,16 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                ElevatedButton(
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                     textStyle: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -97,9 +115,9 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-              ],
-            ),
-          ),
+              ),
+            ],
+          )
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -109,41 +127,24 @@ class ProfilePage extends StatelessWidget {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.quiz),
-            label: 'Categories',
+            icon: Icon(Icons.category_rounded),
+            label: 'Catagories',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics),
+            icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
         ],
-        currentIndex: 3,
+        currentIndex: _selectedIndex,
         selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
+        onTap: _onItemTapped,
         backgroundColor: Colors.white10,
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: Colors.white,
-        onTap: (index) {
-          // Handle navigation based on index
-          switch (index) {
-            case 0:
-              // Navigate to Home
-              break;
-            case 1:
-              // Navigate to Categories
-              break;
-            case 2:
-              // Navigate to Teasers
-              break;
-            case 3:
-              // Already on Profile page
-              break;
-            default:
-          }
-        },
       ),
     );
   }
