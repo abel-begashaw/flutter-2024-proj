@@ -13,21 +13,18 @@ class _TeasersScreenState extends State<TeasersScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // Navigate to other screens based on index
+
       switch (index) {
         case 0:
-          Navigator.pushNamed(
-              context, '/home_screen'); // Navigate to HomeScreen
+          Navigator.pushNamed(context, '/home_screen');
           break;
         case 1:
-          // Navigate to TeasersScreen (current screen)
           break;
         case 2:
-          Navigator.pushNamed(
-              context, '/analytics'); // Navigate to AnalyticsScreen
+          Navigator.pushNamed(context, '/analytics');
           break;
         case 3:
-          Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
+          Navigator.pushNamed(context, '/profile');
           break;
         default:
       }

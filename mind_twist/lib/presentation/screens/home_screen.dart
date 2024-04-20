@@ -13,20 +13,18 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // Navigate to other screens based on index
+
       switch (index) {
         case 0:
-          // Navigate to HomeScreen (current screen)
           break;
         case 1:
-          Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
+          Navigator.pushNamed(context, '/teaser');
           break;
         case 2:
-          Navigator.pushNamed(
-              context, '/analytics'); // Navigate to AnalyticsScreen
+          Navigator.pushNamed(context, '/analytics');
           break;
         case 3:
-          Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
+          Navigator.pushNamed(context, '/profile');
           break;
         default:
       }

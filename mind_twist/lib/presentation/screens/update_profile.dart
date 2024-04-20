@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 
 class UpdateProfilePage extends StatefulWidget {
@@ -43,12 +41,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 158, 152, 199),
+        backgroundColor: const Color.fromARGB(255, 158, 152, 199),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           color: Colors.white,
         ),
       ),
@@ -59,7 +57,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Center(
+                  const Center(
                     child: Text(
                       "Update Profile",
                       style: TextStyle(
@@ -68,12 +66,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                           color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  CircleAvatar(
+                  const SizedBox(height: 10),
+                  const CircleAvatar(
                     radius: 75,
                     backgroundImage: AssetImage('assets/Images/profilepic.jpg'),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Username Input Field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -81,20 +79,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       controller: _usernameController,
                       decoration: InputDecoration(
                         hintText: 'Enter new username',
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: const TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Password Input Field
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -103,20 +101,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       obscureText: true, // Hide password text
                       decoration: InputDecoration(
                         hintText: 'Enter new password',
-                        hintStyle: TextStyle(color: Colors.white),
+                        hintStyle: const TextStyle(color: Colors.white),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -139,7 +137,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Padding(

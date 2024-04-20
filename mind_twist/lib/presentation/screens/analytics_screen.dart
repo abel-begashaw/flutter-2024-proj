@@ -13,20 +13,18 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      // Navigate to other screens based on index
+
       switch (index) {
         case 0:
-          Navigator.pushNamed(
-              context, '/home_screen'); // Navigate to HomeScreen
+          Navigator.pushNamed(context, '/home_screen');
           break;
         case 1:
-          Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
+          Navigator.pushNamed(context, '/teaser');
           break;
         case 2:
-          // Navigate to AnalyticsScreen (current screen)
           break;
         case 3:
-          Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
+          Navigator.pushNamed(context, '/profile');
           break;
         default:
       }
@@ -37,7 +35,6 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
-      // Your Scaffold contents here...
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,9 +55,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // Implement action when the button is pressed
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 50),
@@ -142,9 +137,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green, // Change color as needed
+        selectedItemColor: Colors.green,
         backgroundColor: Colors.white10,
-        unselectedItemColor: Colors.white, // Change color as needed
+        unselectedItemColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
