@@ -47,9 +47,14 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Let us see how you are doing',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  const Center(
+                    child: Text(
+                      'Let us see how you are doing',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
@@ -58,9 +63,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: Text(
+                    child: const Text(
                       'Refresh Statistics',
                       style: TextStyle(fontSize: 18),
                     ),
@@ -84,7 +89,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildStatItem('Quizzes Taken:', '5'),
+                          _buildStatItem('Teasers Taken:', '5'),
                           _buildStatItem('Questions Answered:', '50'),
                           _buildStatItem('Questions Missed:', '10'),
                           const SizedBox(height: 20),
@@ -152,11 +157,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Text(
           value,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
         ),
       ],
     );
