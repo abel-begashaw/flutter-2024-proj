@@ -161,6 +161,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
+                          //user can delete him/her self if need account no longer exist
                           child: const Text(
                             'Delete Account',
                             style: TextStyle(color: Colors.white),
