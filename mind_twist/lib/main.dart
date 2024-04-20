@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         '/home_screen': (context) => const HomeScreen(),
         '/analytics': (context) => const AnalyticsScreen(),
         '/teaser': (context) => const TeasersScreen(),
+        '/update_profile': (context) => const UpdateProfilePage(),
       },
     );
   }
