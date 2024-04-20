@@ -22,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
           break;
         case 2:
-          Navigator.pushNamed(context, '/analytics'); // Navigate to AnalyticsScreen
+          Navigator.pushNamed(
+              context, '/analytics'); // Navigate to AnalyticsScreen
           break;
         case 3:
           Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
+            icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
@@ -86,8 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple, // Change color as needed
-        backgroundColor: Colors.white, // Change color as needed
+        selectedItemColor: Colors.green, // Change color as needed
+        backgroundColor: Colors.white10,
+        unselectedItemColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),

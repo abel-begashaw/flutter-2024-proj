@@ -16,7 +16,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       // Navigate to other screens based on index
       switch (index) {
         case 0:
-          Navigator.pushNamed(context, '/home_screen'); // Navigate to HomeScreen
+          Navigator.pushNamed(
+              context, '/home_screen'); // Navigate to HomeScreen
           break;
         case 1:
           Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
@@ -90,7 +91,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           const Divider(height: 20, color: Colors.grey),
                           const SizedBox(height: 20),
                           _buildStatItem('Total Time Taken:', '2h 30m'),
-                          _buildStatItem('Average Time per Question:', '3m 15s'),
+                          _buildStatItem(
+                              'Average Time per Question:', '3m 15s'),
                           _buildStatItem('Fastest Completion Time:', '1h 20m'),
                           _buildStatItem('Slowest Completion Time:', '3h 10m'),
                           const SizedBox(height: 20),
@@ -98,7 +100,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           const SizedBox(height: 20),
                           const Text(
                             'Additional Stats:',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           _buildStatItem('Accuracy Percentage:', '85%'),
                           _buildStatItem('Average Score:', '75'),
@@ -121,7 +124,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
+            icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
@@ -134,8 +137,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple, // Change color as needed
-        backgroundColor: Colors.white, // Change color as needed
+        selectedItemColor: Colors.green, // Change color as needed
+        backgroundColor: Colors.white10,
+        unselectedItemColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),

@@ -16,13 +16,15 @@ class _ProfilePageState extends State<ProfilePage> {
       // Navigate to other screens based on index
       switch (index) {
         case 0:
-          Navigator.pushNamed(context, '/home_screen'); // Navigate to HomeScreen
+          Navigator.pushNamed(
+              context, '/home_screen'); // Navigate to HomeScreen
           break;
         case 1:
           Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
           break;
         case 2:
-          Navigator.pushNamed(context, '/analytics'); // Navigate to AnalyticsScreen
+          Navigator.pushNamed(
+              context, '/analytics'); // Navigate to AnalyticsScreen
           break;
         case 3:
           // Navigate to ProfilePage (current screen)
@@ -86,7 +88,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/update_profile');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.0),
@@ -111,7 +115,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
                     shadowColor: Colors.transparent.withOpacity(0.0),
@@ -144,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
+            icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
@@ -157,8 +163,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple, // Change color as needed
-        backgroundColor: Colors.white, // Change color as needed
+        selectedItemColor: Colors.green, // Change color as needed
+        backgroundColor: Colors.white10,
+        unselectedItemColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),

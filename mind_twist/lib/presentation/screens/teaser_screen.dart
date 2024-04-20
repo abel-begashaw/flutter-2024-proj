@@ -16,13 +16,15 @@ class _TeasersScreenState extends State<TeasersScreen> {
       // Navigate to other screens based on index
       switch (index) {
         case 0:
-          Navigator.pushNamed(context, '/home_screen'); // Navigate to HomeScreen
+          Navigator.pushNamed(
+              context, '/home_screen'); // Navigate to HomeScreen
           break;
         case 1:
           // Navigate to TeasersScreen (current screen)
           break;
         case 2:
-          Navigator.pushNamed(context, '/analytics'); // Navigate to AnalyticsScreen
+          Navigator.pushNamed(
+              context, '/analytics'); // Navigate to AnalyticsScreen
           break;
         case 3:
           Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
@@ -37,7 +39,7 @@ class _TeasersScreenState extends State<TeasersScreen> {
     return Scaffold(
       // Your Scaffold contents here...
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
-      
+
       body: Center(
         child: GridView.count(
           crossAxisCount: 2, // 2 columns
@@ -61,7 +63,7 @@ class _TeasersScreenState extends State<TeasersScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
+            icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
@@ -74,13 +76,15 @@ class _TeasersScreenState extends State<TeasersScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.purple, // Change color as needed
-        backgroundColor: Colors.white, // Change color as needed
+        selectedItemColor: Colors.green, // Change color as needed
+        backgroundColor: Colors.white10,
+        unselectedItemColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
     );
   }
+
   Widget _buildCategoryBox(String categoryName) {
     return Container(
       decoration: BoxDecoration(
