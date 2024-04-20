@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mind_twist/presentation/screens/analytics_screen.dart';
-import 'package:mind_twist/presentation/screens/home.dart';
+import 'package:mind_twist/presentation/screens/landing_page.dart';
 import 'package:mind_twist/presentation/screens/home_screen.dart';
 import 'package:mind_twist/presentation/screens/profile.dart';
 import 'package:mind_twist/presentation/screens/signIn.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const LandingPage(),
         '/signin': (context) => const SignInScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/profile': (context) => const ProfilePage(),
