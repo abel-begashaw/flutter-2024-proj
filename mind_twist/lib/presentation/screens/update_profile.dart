@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class UpdateProfilePage extends StatefulWidget {
@@ -8,11 +10,31 @@ class UpdateProfilePage extends StatefulWidget {
 }
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
-  int _selectedIndex = 0;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      // Navigate to other screens based on index
+      switch (index) {
+        case 0:
+          Navigator.pushNamed(context, '/home_screen');
+          break;
+        case 1:
+          Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
+          break;
+        case 2:
+          Navigator.pushNamed(
+              context, '/analytics'); // Navigate to AnalyticsScreen
+          break;
+        case 3:
+          Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
+          break;
+        default:
+      }
     });
   }
 
@@ -20,105 +42,143 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 60,
-          ),
-          Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Text(
-                    "Update Profile",
-                    style: TextStyle(
-                        fontSize: 34,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 158, 152, 199),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      "Update Profile",
+                      style: TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  CircleAvatar(
+                    radius: 75,
+                    backgroundImage: AssetImage('assets/Images/profilepic.jpg'),
+                  ),
+                  SizedBox(height: 20),
+                  // Username Input Field
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        hintText: 'Enter new username',
+                        hintStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  // Password Input Field
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: TextField(
+                      controller: _passwordController,
+                      obscureText: true, // Hide password text
+                      decoration: InputDecoration(
+                        hintText: 'Enter new password',
+                        hintStyle: TextStyle(color: Colors.white),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent.withOpacity(0.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 15),
+                      textStyle: const TextStyle(
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                ),
-                SizedBox(height: 30),
-                CircleAvatar(
-                  radius: 75,
-                  backgroundImage: AssetImage('assets/Images/profilepic.jpg'),
-                ),
-                SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                        color: Colors.white,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Colors.green),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(30),
+                    child: const Text(
+                      'Apply',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  child: const Text(
-                    'Change Username',
-                    style: TextStyle(color: Colors.white),
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    'Change Password',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent.withOpacity(0.0),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 15),
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(30),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 35),
+                    child: Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent.withOpacity(0.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 15),
+                            textStyle: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: const Text(
+                            'Delete Account',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: const Text(
-                    'Apply',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 70,
-          ),
-        ],
+            const SizedBox(
+              height: 70,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -127,12 +187,12 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category_rounded),
-            label: 'Catagories',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics_rounded),
+            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
@@ -140,11 +200,11 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 114, 244, 201),
-        onTap: _onItemTapped,
+        selectedItemColor: Colors.green, // Change color as needed
         backgroundColor: Colors.white10,
+        unselectedItemColor: Colors.white, // Change color as needed
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.white,
+        onTap: _onItemTapped,
       ),
     );
   }
