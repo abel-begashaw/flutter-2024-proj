@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mind_twist/presentation/screens/home_screen.dart';
+
 import 'package:mind_twist/presentation/widgets/constants.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -12,6 +12,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignUpScreen> {
   bool _rememberMe = false;
+  final _formKey = GlobalKey<FormState>();
 
   Widget _buildUsernameTF() {
     return Column(
@@ -22,13 +23,13 @@ class _SignInScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: const TextField(
+          child: TextFormField(
             keyboardType: TextInputType.name,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -38,6 +39,12 @@ class _SignInScreenState extends State<SignUpScreen> {
               hintText: 'Username',
               hintStyle: kHintTextStyle,
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your username';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -53,13 +60,13 @@ class _SignInScreenState extends State<SignUpScreen> {
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
           height: 60.0,
-          child: const TextField(
+          child: TextFormField(
             obscureText: true,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -69,6 +76,12 @@ class _SignInScreenState extends State<SignUpScreen> {
               hintText: 'Password',
               hintStyle: kHintTextStyle,
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
           ),
         ),
       ],
@@ -118,7 +131,11 @@ class _SignInScreenState extends State<SignUpScreen> {
           ),
           backgroundColor: Colors.white,
         ),
-        onPressed: () => Navigator.pushReplacementNamed(context, '/home_screen'),
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            Navigator.pushReplacementNamed(context, '/home_screen');
+          }
+        },
         child: const Text(
           'SIGN UP',
           style: TextStyle(
@@ -195,28 +212,31 @@ class _SignInScreenState extends State<SignUpScreen> {
                     horizontal: 40.0,
                     vertical: 120.0,
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 30.0),
-                      _buildUsernameTF(),
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      _buildRememberMeCheckbox(),
-                      _buildSignInBtn(),
-                      _buildSignUpBtn(),
-                    ],
+                        const SizedBox(height: 30.0),
+                        _buildUsernameTF(),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        _buildPasswordTF(),
+                        _buildRememberMeCheckbox(),
+                        _buildSignInBtn(),
+                        _buildSignUpBtn(),
+                      ],
+                    ),
                   ),
                 ),
               )
