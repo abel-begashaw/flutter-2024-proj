@@ -75,12 +75,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Password: *******',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
-                SizedBox(height: 40),
               ],
             ),
           ),
           const SizedBox(
-            height: 70,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,7 +139,33 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ],
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/admin');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent.withOpacity(0.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              textStyle: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: const Text(
+              'Admin Panel',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
