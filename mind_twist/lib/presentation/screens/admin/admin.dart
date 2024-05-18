@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'package:mind_twist/presentation/screens/home_screen.dart';
-import 'package:mind_twist/presentation/widgets/constants.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -12,7 +8,6 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  // Placeholder list of users (you'll need to replace this with a database or other data storage)
   final List<Map<String, dynamic>> _users = [
     {'username': 'Naol Kumela', 'password': 'naol', 'role': 'user'},
     {'username': 'Abel Begashaw', 'password': 'abel', 'role': 'admin'},
