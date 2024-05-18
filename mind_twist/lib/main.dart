@@ -3,11 +3,11 @@ import 'package:mind_twist/presentation/screens/admin.dart';
 import 'package:mind_twist/presentation/screens/analytics_screen.dart';
 import 'package:mind_twist/presentation/screens/landing_page.dart';
 import 'package:mind_twist/presentation/screens/home_screen.dart';
-import 'package:mind_twist/presentation/screens/profile.dart';
+import 'package:mind_twist/presentation/screens/profile/profile.dart';
 import 'package:mind_twist/presentation/screens/signIn.dart';
 import 'package:mind_twist/presentation/screens/signUp.dart';
 import 'package:mind_twist/presentation/screens/teaser_screen.dart';
-import 'package:mind_twist/presentation/screens/update_profile.dart';
+import 'package:mind_twist/presentation/screens/profile/update_profile.dart';
 
 void main() {
   runApp(const MyApp());
