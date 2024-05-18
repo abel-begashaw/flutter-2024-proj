@@ -26,6 +26,7 @@ MindTwist is a captivating and stimulating mobile application designed to challe
    - Enable users to compete against themselves to solve as many brain teasers as possible within a specified time limit.
    - Provide hints or solutions for users encountering difficulties with specific brain teasers, ensuring a smooth and enjoyable experience.
 
+
 ### Team Members
 
 | No. | Names         | ID          | Section |
