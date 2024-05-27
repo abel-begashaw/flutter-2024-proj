@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TeasersScreen extends StatefulWidget {
-  const TeasersScreen({Key? key}) : super(key: key);
+  const TeasersScreen({super.key});
 
   @override
   State<TeasersScreen> createState() => _TeasersScreenState();
@@ -53,32 +53,32 @@ class _TeasersScreenState extends State<TeasersScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.question_mark_rounded),
-            label: 'Teasers',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_rounded),
-            label: 'Analytics',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green, // Change color as needed
-        backgroundColor: Colors.white10,
-        unselectedItemColor: Colors.white, // Change color as needed
-        type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: 'Home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.question_mark_rounded),
+      //       label: 'Teasers',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.analytics_rounded),
+      //       label: 'Analytics',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.account_circle),
+      //       label: 'Profile',
+      //     ),
+      //   ],
+      //   currentIndex: _selectedIndex,
+      //   selectedItemColor: Colors.green, // Change color as needed
+      //   backgroundColor: Colors.white10,
+      //   unselectedItemColor: Colors.white, // Change color as needed
+      //   type: BottomNavigationBarType.fixed,
+      //   onTap: _onItemTapped,
+      // ),
     );
   }
 
