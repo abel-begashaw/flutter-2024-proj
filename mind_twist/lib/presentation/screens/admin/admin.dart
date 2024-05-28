@@ -1,4 +1,9 @@
+// mind_twist\lib\presentation\screens\admin\admin.dart
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:go_router/go_router.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key});
@@ -8,29 +13,160 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  final List<Map<String, dynamic>> _users = [
-    {'username': 'Naol Kumela', 'password': 'naol', 'role': 'user'},
-    {'username': 'Abel Begashaw', 'password': 'abel', 'role': 'admin'},
-    {'username': 'Milko Shuma', 'password': 'milko', 'role': 'user'},
-    {'username': 'Natan Amanuel', 'password': 'natan', 'role': 'admin'},
-  ];
-
+  List<Map<String, dynamic>> _users = [];
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _newUsernameController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
 
-  void _createUser() {
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsers();
+  }
+
+  Future<void> _fetchUsers() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      try {
+        final response = await http.get(
+          Uri.parse('http://192.168.42.1:3000/api/admin/users'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
+
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body) as List<dynamic>;
+          setState(() {
+            _users = data.map((user) => user as Map<String, dynamic>).toList();
+          });
+        } else {
+          // Handle error
+        }
+      } catch (error) {
+        // Handle network or other errors
+      }
+    }
+  }
+
+  Future<void> _createUser() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _users.add({
-          'username': _newUsernameController.text,
-          'password': _newPasswordController.text,
-          'role': 'user', // New users start as regular users
-        });
-        _newUsernameController.clear();
-        _newPasswordController.clear();
-        Navigator.of(context).pop(); // Close the dialog
-      });
+      final username = _newUsernameController.text.trim();
+      final password = _newPasswordController.text.trim();
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('token');
+
+      if (token != null) {
+        try {
+          final response = await http.post(
+            Uri.parse('http://192.168.42.1:3000/api/auth/signup'),
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+            body: jsonEncode({'username': username, 'password': password}),
+          );
+
+          if (response.statusCode == 201) {
+            // User created successfully
+            _fetchUsers(); // Update the user list after creation
+            _newUsernameController.clear();
+            _newPasswordController.clear();
+            Navigator.of(context).pop(); // Close the dialog
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('User created successfully')),
+            );
+          } else {
+            // Handle error
+            final error = jsonDecode(response.body)['message'];
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(error)),
+            );
+          }
+        } catch (error) {
+          // Handle network or other errors
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('An error occurred: $error')),
+          );
+        }
+      }
+    }
+  }
+
+  Future<void> _updateUserRole(String userId, String newRole) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      try {
+        final response = await http.put(
+          Uri.parse('http://192.168.42.1:3000/api/admin/users/$userId/role'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({'role': newRole}),
+        );
+
+        if (response.statusCode == 200) {
+          // User role updated successfully
+          _fetchUsers(); // Refresh the user list
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('User role updated successfully')),
+          );
+        } else {
+          // Handle error
+          final error = jsonDecode(response.body)['message'];
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error)),
+          );
+        }
+      } catch (error) {
+        // Handle network or other errors
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred: $error')),
+        );
+      }
+    }
+  }
+
+  Future<void> _deleteUser(String userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      try {
+        final response = await http.delete(
+          Uri.parse('http://192.168.42.1:3000/api/admin/users/$userId'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        );
+
+        if (response.statusCode == 200) {
+          // User deleted successfully
+          _fetchUsers(); // Refresh the user list
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('User deleted successfully')),
+          );
+        } else {
+          // Handle error
+          final error = jsonDecode(response.body)['message'];
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(error)),
+          );
+        }
+      } catch (error) {
+        // Handle network or other errors
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('An error occurred: $error')),
+        );
+      }
     }
   }
 
@@ -42,6 +178,13 @@ class _AdminPageState extends State<AdminPage> {
           'Admin Panel',
           style: TextStyle(color: Colors.white),
         ),
+        leading: IconButton(
+          onPressed: () {
+            context.go('/profile');
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 158, 152, 199),
       ),
@@ -50,7 +193,6 @@ class _AdminPageState extends State<AdminPage> {
           const SizedBox(height: 10),
           Expanded(
             child: ListView.separated(
-              // Use ListView.separated for dividers
               itemCount: _users.length,
               itemBuilder: (context, index) {
                 final user = _users[index];
@@ -65,10 +207,7 @@ class _AdminPageState extends State<AdminPage> {
                       IconButton(
                         icon: const Icon(Icons.delete),
                         onPressed: () {
-                          // Implement delete user functionality here
-                          setState(() {
-                            _users.removeAt(index);
-                          });
+                          _deleteUser(user['_id']);
                         },
                       ),
                       IconButton(
@@ -76,11 +215,8 @@ class _AdminPageState extends State<AdminPage> {
                             ? Icons.person
                             : Icons.admin_panel_settings),
                         onPressed: () {
-                          // Implement promote/demote user functionality here
-                          setState(() {
-                            user['role'] =
-                                user['role'] == 'admin' ? 'user' : 'admin';
-                          });
+                          _updateUserRole(user['_id'],
+                              user['role'] == 'admin' ? 'user' : 'admin');
                         },
                       ),
                     ],

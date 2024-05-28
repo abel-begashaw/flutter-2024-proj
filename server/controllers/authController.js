@@ -1,6 +1,6 @@
-// server\controllers\authController.js
 const User = require("../models/User");
-const jwt = require("jsonwebtoken"); // Import jsonwebtoken
+const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
 const signup = async (req, res) => {
   try {
@@ -9,12 +9,12 @@ const signup = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: "Username already exists" });
     }
-    const newUser = new User({ username, password });
+    const newUser = new User({ username, password, role: "user" }); // Set role
     await newUser.save();
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1h", // Set token expiration time (e.g., 1 hour)
     });
-    res.status(201).json({ token, userId: newUser._id });
+    res.status(201).json({ token, userId: newUser._id, role: "user" });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
@@ -31,10 +31,14 @@ const signin = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h", // Set token expiration time (e.g., 1 hour)
-    });
-    res.json({ token, userId: user._id });
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
+    res.json({ token, userId: user._id, role: user.role });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
   }
@@ -43,11 +47,26 @@ const signin = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: req.user.userId }, // Find the user based on their user ID
-      { username, password }, // Update the username and password
-      { new: true } // Return the updated user document
-    );
+    let updatedUser;
+
+    if (password) {
+      // Hash the new password if provided
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash(password, salt);
+      updatedUser = await User.findOneAndUpdate(
+        { _id: req.user.userId },
+        { username, password: hashedPassword },
+        { new: true }
+      );
+    } else {
+      // If no new password is provided, only update the username
+      updatedUser = await User.findOneAndUpdate(
+        { _id: req.user.userId },
+        { username },
+        { new: true }
+      );
+    }
+
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }

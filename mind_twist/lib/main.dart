@@ -15,7 +15,6 @@ import 'package:mind_twist/presentation/screens/profile/update_profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:mind_twist/presentation/screens/teaser/teaser_cubit.dart';
 
 // Actual Auth Repository (Communicates with Backend)
 class AuthRepository implements AuthRepositoryInterface {
@@ -71,9 +70,6 @@ void main() async {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(authRepository: authRepository),
-        ),
-        BlocProvider<TeaserCubit>(
-          create: (context) => TeaserCubit(),
         ),
       ],
       child: MyApp(),
@@ -142,6 +138,16 @@ class MyApp extends StatelessWidget {
   );
 }
 
+Future<Widget> _buildAdminPage(BuildContext context) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? userRole = prefs.getString('userRole');
+  if (userRole == 'admin') {
+    return const AdminPage();
+  } else {
+    return const HomeScreen();
+  }
+}
+
 class MainContainer extends StatelessWidget {
   const MainContainer({super.key});
 
@@ -162,3 +168,11 @@ class MainContainer extends StatelessWidget {
 }
 
 class Authenticated {}
+
+Future<void> _storeAuthData(String token, String userId, String role) async {
+  // Store role also
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('token', token);
+  await prefs.setString('userId', userId);
+  await prefs.setString('role', role); // Store role
+}

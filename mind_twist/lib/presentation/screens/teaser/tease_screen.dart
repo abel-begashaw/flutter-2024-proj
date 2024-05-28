@@ -1,5 +1,6 @@
 // lib/presentation/screens/teaser/tease_screen.dart
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mind_twist/presentation/screens/teaser/score_screen.dart';
 import 'package:mind_twist/presentation/widgets/tease_options.dart';
 
@@ -34,13 +35,16 @@ class _TeaseScreenState extends State<TeaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 162, 155, 204),
       appBar: AppBar(
-        title: Text(widget.categoryName),
+        elevation: 5,
+        backgroundColor: const Color.fromARGB(255, 158, 152, 199),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, 'frame');
+            context.go('/home');
           },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
         ),
       ),
       body: Padding(

@@ -14,6 +14,18 @@ class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 162, 155, 204),
+      appBar: AppBar(
+        elevation: 5,
+        backgroundColor: const Color.fromARGB(255, 158, 152, 199),
+        leading: IconButton(
+          onPressed: () {
+            context.go('/home');
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
+      ),
       body: Center(
         child: GestureDetector(
           onTap: () {
@@ -23,19 +35,25 @@ class ScoreScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Your Score',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 '$score / $totalQuestions',
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 'Tap to return to the Teaser Screen',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ],
           ),

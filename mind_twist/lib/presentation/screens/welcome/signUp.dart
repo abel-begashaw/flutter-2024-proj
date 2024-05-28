@@ -195,7 +195,7 @@ class SignUpScreen extends StatelessWidget {
 
   Widget _buildSignInBtn(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.goNamed('signin'),
+      onTap: () => context.go('/signin'),
       child: RichText(
         text: const TextSpan(
           children: [

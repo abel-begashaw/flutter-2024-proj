@@ -68,12 +68,16 @@ class _TeaserScreenState extends State<TeaserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 162, 155, 204),
       appBar: AppBar(
+        elevation: 5,
+        backgroundColor: const Color.fromARGB(255, 158, 152, 199),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
           onPressed: () {
             context.go('/home');
           },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
         ),
       ),
       body: Padding(

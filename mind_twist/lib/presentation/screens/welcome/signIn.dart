@@ -68,7 +68,6 @@ class SignInScreen extends StatelessWidget {
                                 height: 30.0,
                               ),
                               _buildPasswordTF(context),
-                              _buildForgotPasswordBtn(),
                               _buildSignInBtn(context),
                               _buildSignUpBtn(context),
                             ],
@@ -162,19 +161,6 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        child: const Text(
-          'Forgot Password?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
   Widget _buildSignInBtn(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
@@ -211,7 +197,7 @@ class SignInScreen extends StatelessWidget {
 
   Widget _buildSignUpBtn(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.goNamed('signup'),
+      onTap: () => context.go('/signup'),
       child: RichText(
         text: const TextSpan(
           children: [

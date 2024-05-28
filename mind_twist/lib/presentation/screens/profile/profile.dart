@@ -1,5 +1,7 @@
+// mind_twist\lib\presentation\screens\profile\profile.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared preferences
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -9,6 +11,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfileScreen> {
+  String? _userRole; // To store the fetched user role
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserRole();
+  }
+
+  Future<void> _fetchUserRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userRole = prefs.getString('role');
+    });
+  }
+
   int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
@@ -33,7 +50,6 @@ class _ProfilePageState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Your Scaffold contents here...
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
       body: Column(
         children: [
@@ -110,8 +126,14 @@ class _ProfilePageState extends State<ProfileScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.remove('token');
+                    await prefs.remove('userId');
+                    await prefs.remove('username');
+                    await prefs.remove('role');
+                    context.go('/');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -139,27 +161,32 @@ class _ProfilePageState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          ElevatedButton(
-            onPressed: () {
-              context.go('/admin');
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.transparent,
-              shadowColor: Colors.transparent.withOpacity(0.0),
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-              textStyle: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          Visibility(
+            // Use Visibility for conditional display
+
+            child: ElevatedButton(
+              onPressed: () {
+                context.go('/admin');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent.withOpacity(0.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(30),
+                ),
               ),
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(30),
+              child: const Text(
+                'Admin Panel',
+                style: TextStyle(color: Colors.white),
               ),
-            ),
-            child: const Text(
-              'Admin Panel',
-              style: TextStyle(color: Colors.white),
             ),
           ),
         ],
