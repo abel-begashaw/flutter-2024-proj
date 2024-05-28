@@ -59,10 +59,6 @@ class HomeScreen extends StatelessWidget {
             label: 'Teasers',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_rounded),
-            label: 'Analytics',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
           ),
@@ -77,10 +73,8 @@ class HomeScreen extends StatelessWidget {
             case 1:
               context.go('/teaser');
               break;
+
             case 2:
-              context.go('analytics');
-              break;
-            case 3:
               context.go('/profile');
               break;
             default:

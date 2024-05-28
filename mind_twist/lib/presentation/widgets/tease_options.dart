@@ -12,8 +12,6 @@ class Option extends StatelessWidget {
     required this.onPressed,
   }) : super(key: key);
 
-  get WidgetStateProperty => null;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,8 +19,9 @@ class Option extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed, // Use the provided onPressed callback
         style: ButtonStyle(
-          backgroundColor:
-              isSelected ? WidgetStateProperty.all(Colors.green) : null,
+          backgroundColor: isSelected
+              ? MaterialStateProperty.all<Color>(Colors.green)
+              : null,
           // Apply green background color if isSelected is true
         ),
         child: Text(

@@ -7,7 +7,6 @@ import 'package:mind_twist/core/domain/auth/auth_repository_interface.dart';
 import 'package:mind_twist/presentation/screens/admin/admin.dart';
 import 'package:mind_twist/presentation/screens/home/home_screen.dart';
 import 'package:mind_twist/presentation/screens/profile/profile.dart';
-import 'package:mind_twist/presentation/screens/teaser/analytics_screen.dart';
 import 'package:mind_twist/presentation/screens/teaser/teaser_screen.dart';
 import 'package:mind_twist/presentation/screens/welcome/landing_page.dart';
 import 'package:mind_twist/presentation/screens/welcome/signIn.dart';
@@ -16,6 +15,7 @@ import 'package:mind_twist/presentation/screens/profile/update_profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mind_twist/presentation/screens/teaser/teaser_cubit.dart';
 
 // Actual Auth Repository (Communicates with Backend)
 class AuthRepository implements AuthRepositoryInterface {
@@ -71,6 +71,9 @@ void main() async {
       providers: [
         BlocProvider<AuthCubit>(
           create: (context) => AuthCubit(authRepository: authRepository),
+        ),
+        BlocProvider<TeaserCubit>(
+          create: (context) => TeaserCubit(),
         ),
       ],
       child: MyApp(),

@@ -29,10 +29,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
           break;
         case 2:
-          Navigator.pushNamed(
-              context, '/analytics'); // Navigate to AnalyticsScreen
-          break;
-        case 3:
           Navigator.pushNamed(context, '/profile'); // Navigate to ProfilePage
           break;
         default:
@@ -192,10 +188,6 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_rounded),
             label: 'Teasers',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.analytics_rounded),
-            label: 'Analytics',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),

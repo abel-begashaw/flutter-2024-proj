@@ -17,18 +17,15 @@ class Option extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
-        onPressed: onPressed, // Use the provided onPressed callback
+        onPressed: onPressed,
         style: ButtonStyle(
           backgroundColor:
-              isSelected ? WidgetStateProperty.all(Colors.green) : null,
-          // Apply green background color if isSelected is true
+              isSelected ? MaterialStateProperty.all(Colors.green) : null,
         ),
         child: Text(
           optionText,
           style: TextStyle(
-            color: isSelected
-                ? Colors.white
-                : null, // Change text color if isSelected
+            color: isSelected ? Colors.white : null,
           ),
         ),
       ),

@@ -18,6 +18,7 @@ extension GroupByExtension<T> on List<T> {
 
 class TeaserCubit extends Cubit<TeaserState> {
   TeaserCubit() : super(TeaserStateInitial());
+  Map<String, List<Map<String, dynamic>>> categoryQuestions = {}; // Added
 
   Future<void> fetchTeasers() async {
     emit(TeaserStateLoading());
@@ -26,9 +27,11 @@ class TeaserCubit extends Cubit<TeaserState> {
           await http.get(Uri.parse('http://192.168.42.1:3000/api/teasers'));
       if (response.statusCode == 200) {
         final List<dynamic> teaserData = json.decode(response.body);
-        final groupedTeasers =
-            teaserData.groupListsBy((teaser) => teaser['category'] as String);
-        emit(TeaserStateSuccess(categories: groupedTeasers.keys.toList()));
+        categoryQuestions = teaserData
+            .groupListsBy((teaser) => teaser['category'] as String)
+            .map((key, value) =>
+                MapEntry(key, value.cast<Map<String, dynamic>>()));
+        emit(TeaserStateSuccess(categories: categoryQuestions.keys.toList()));
       } else {
         emit(TeaserStateFailure(message: 'Failed to load teasers'));
       }
