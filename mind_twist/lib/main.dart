@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
         '/profile': (context) => const ProfilePage(),
         '/home_screen': (context) => const HomeScreen(),
         '/analytics': (context) => const AnalyticsScreen(),
-        '/teaser': (context) => const TeasersScreen(),
+        '/teaser': (context) => TeaserScreen(),
         '/update_profile': (context) => const UpdateProfilePage(),
-        '/admin': (context) => const AdminPage()
+        '/admin': (context) => const AdminPage(),
       },
     );
   }

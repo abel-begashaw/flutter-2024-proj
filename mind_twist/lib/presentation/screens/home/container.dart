@@ -33,7 +33,7 @@ class _MainContainerState extends State<MainContainer> {
 
   final List<Widget> _screens = [
     const HomeScreen(),
-    const TeasersScreen(),
+    TeaserScreen(),
     const AnalyticsScreen(),
     const ProfilePage(),
   ];

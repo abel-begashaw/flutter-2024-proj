@@ -145,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             // Validate on button press
-            Navigator.pushReplacementNamed(context, '/home_screen');
+            Navigator.pushReplacementNamed(context, 'frame');
           }
         },
         child: const Text(

@@ -152,7 +152,7 @@ class _SignInScreenState extends State<SignUpScreen> {
 
   Widget _buildSignUpBtn() {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/signin'),
+      onTap: () => Navigator.pushNamed(context, 'frame'),
       child: RichText(
         text: const TextSpan(
           children: [
