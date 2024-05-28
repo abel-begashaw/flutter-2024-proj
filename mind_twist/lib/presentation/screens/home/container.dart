@@ -34,8 +34,8 @@ class _MainContainerState extends State<MainContainer> {
   final List<Widget> _screens = [
     const HomeScreen(),
     TeaserScreen(),
-    const AnalyticsScreen(),
-    const ProfilePage(),
+    // const AnalyticsScreen(),
+    // const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

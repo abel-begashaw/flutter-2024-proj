@@ -1,20 +1,92 @@
+// lib/presentation/screens/welcome/sign_in_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mind_twist/presentation/screens/welcome/sign_in_cubit.dart';
 import 'package:mind_twist/presentation/widgets/constants.dart';
+import 'package:mind_twist/presentation/screens/welcome/sign_in_state.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 120, 113, 170),
+                      Color.fromARGB(255, 130, 122, 185),
+                      Color.fromARGB(255, 136, 128, 195),
+                      Color.fromARGB(255, 122, 116, 167),
+                    ],
+                    stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 120.0,
+                  ),
+                  child: BlocProvider(
+                    create: (context) => SignInCubit(),
+                    child: BlocBuilder<SignInCubit, SignInState>(
+                      builder: (context, state) {
+                        return Form(
+                          key: context.read<SignInCubit>().formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 30.0),
+                              _buildUsernameTF(context),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              _buildPasswordTF(context),
+                              _buildForgotPasswordBtn(),
+                              _buildSignInBtn(context),
+                              _buildSignUpBtn(context),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-class _SignInScreenState extends State<SignInScreen> {
-  bool _rememberMe = false;
-  final _formKey = GlobalKey<FormState>(); // Add form key
-
-  Widget _buildUsernameTF() {
+  Widget _buildUsernameTF(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -24,6 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
+            controller: context.read<SignInCubit>().usernameController,
             keyboardType: TextInputType.name,
             style: const TextStyle(
               color: Colors.white,
@@ -51,7 +124,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildPasswordTF() {
+  Widget _buildPasswordTF(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -61,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextFormField(
-            // Changed to TextFormField
+            controller: context.read<SignInCubit>().passwordController,
             obscureText: true,
             style: const TextStyle(
               color: Colors.white,
@@ -102,34 +175,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildRememberMeCheckbox() {
-    return SizedBox(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Checkbox(
-              value: _rememberMe,
-              checkColor: Colors.green,
-              activeColor: Colors.white,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value!;
-                });
-              },
-            ),
-          ),
-          const Text(
-            'Remember me',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSignInBtn() {
+  Widget _buildSignInBtn(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
@@ -143,9 +189,10 @@ class _SignInScreenState extends State<SignInScreen> {
           backgroundColor: Colors.white,
         ),
         onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            // Validate on button press
-            Navigator.pushReplacementNamed(context, 'frame');
+          if (context.read<SignInCubit>().formKey.currentState!.validate()) {
+            context.read<SignInCubit>().signIn();
+            // Navigate to the home screen after successful sign-in
+            context.go('/home'); // Assuming 'frame' is the home screen route
           }
         },
         child: const Text(
@@ -162,9 +209,9 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _buildSignUpBtn() {
+  Widget _buildSignUpBtn(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/signup'),
+      onTap: () => context.goNamed('signup'),
       child: RichText(
         text: const TextSpan(
           children: [
@@ -185,77 +232,6 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromARGB(255, 120, 113, 170),
-                      Color.fromARGB(255, 130, 122, 185),
-                      Color.fromARGB(255, 136, 128, 195),
-                      Color.fromARGB(255, 122, 116, 167),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Form(
-                    // Wrap with Form widget
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Sign In',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'OpenSans',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 30.0),
-                        _buildUsernameTF(),
-                        const SizedBox(
-                          height: 30.0,
-                        ),
-                        _buildPasswordTF(),
-                        _buildForgotPasswordBtn(),
-                        _buildRememberMeCheckbox(),
-                        _buildSignInBtn(),
-                        _buildSignUpBtn(),
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
         ),
       ),
     );

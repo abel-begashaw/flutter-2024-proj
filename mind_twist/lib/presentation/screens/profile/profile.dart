@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProfileScreen> createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfileScreen> {
   int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
@@ -16,18 +17,16 @@ class _ProfilePageState extends State<ProfilePage> {
       // Navigate to other screens based on index
       switch (index) {
         case 0:
-          Navigator.pushNamed(
-              context, '/home_screen'); // Navigate to HomeScreen
+          context.go('/home_screen'); // Navigate to HomeScreen
           break;
         case 1:
-          Navigator.pushNamed(context, '/teaser'); // Navigate to TeasersScreen
+          context.go('/teaser'); // Navigate to TeasersScreen
           break;
         case 2:
-          Navigator.pushNamed(
-              context, '/analytics'); // Navigate to AnalyticsScreen
+          context.go('/analytics'); // Navigate to AnalyticsScreen
           break;
         case 3:
-          // Navigate to ProfilePage (current screen)
+          // Navigate to ProfileScreen (current screen)
           break;
         default:
       }
@@ -88,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 alignment: Alignment.centerLeft,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/update_profile');
+                    context.go('/update_profile');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
@@ -145,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/admin');
+              context.go('/admin');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.transparent,
@@ -168,32 +167,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.question_mark_rounded),
-      //       label: 'Teasers',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.analytics_rounded),
-      //       label: 'Analytics',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.account_circle),
-      //       label: 'Profile',
-      //     ),
-      //   ],
-      //   currentIndex: _selectedIndex,
-      //   selectedItemColor: Colors.green, // Change color as needed
-      //   backgroundColor: Colors.white10,
-      //   unselectedItemColor: Colors.white, // Change color as needed
-      //   type: BottomNavigationBarType.fixed,
-      //   onTap: _onItemTapped,
-      // ),
     );
   }
 }

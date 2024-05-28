@@ -1,40 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:mind_twist/presentation/screens/teaser/quiz_screen.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:mind_twist/presentation/screens/teaser/tease_screen.dart';
 import 'package:mind_twist/presentation/widgets/category_options.dart';
 
-class TeaserScreen extends StatelessWidget {
-  final Map<String, List<String>> categoryQuestions = {
-    "Capital Cities": [
-      "What is the capital of France?",
-      "What is the capital of Germany?",
-      // Add more questions for this category
-    ],
-    "Math": [
-      "What is 2 + 2?",
-      "What is the square root of 16?",
-      // Add more questions for this category
-    ],
-    "History": [
-      "Who was the first president of the United States?",
-      "When was the Declaration of Independence signed?",
-      // Add more questions for this category
-    ],
-    "Geography": [
-      "What is the largest ocean on Earth?",
-      "What is the longest river in the world?",
-      // Add more questions for this category
-    ],
-    "Science": [
-      "What is the chemical symbol for water?",
-      "What planet is known as the Red Planet?",
-      // Add more questions for this category
-    ],
-    "Tease": [
-      "This is a sample question for the Tease category.",
-      "Here is another sample question for the Tease category.",
-      // Add more questions for this category
-    ],
-  };
+class TeaserScreen extends StatefulWidget {
+  const TeaserScreen({Key? key}) : super(key: key);
+
+  @override
+  _TeaserScreenState createState() => _TeaserScreenState();
+}
+
+class _TeaserScreenState extends State<TeaserScreen> {
+  Map<String, List<Map<String, dynamic>>> categoryQuestions = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTeasers();
+  }
+
+  Future<void> _fetchTeasers() async {
+    try {
+      final response =
+          await http.get(Uri.parse('http://192.168.42.1:3000/api/teasers'));
+      if (response.statusCode == 200) {
+        final List<dynamic> teaserData = json.decode(response.body);
+
+        // Assuming we have 5 more categories
+        setState(() {
+          categoryQuestions = {
+            'General Knowledge': teaserData
+                .where((teaser) => teaser['category'] == 'General Knowledge')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+            'Science': teaserData
+                .where((teaser) => teaser['category'] == 'Science')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+            'History': teaserData
+                .where((teaser) => teaser['category'] == 'History')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+            'Sports': teaserData
+                .where((teaser) => teaser['category'] == 'Sports')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+            'Entertainment': teaserData
+                .where((teaser) => teaser['category'] == 'Entertainment')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+            'Geography': teaserData
+                .where((teaser) => teaser['category'] == 'Geography')
+                .map((teaser) => teaser as Map<String, dynamic>)
+                .toList(),
+          };
+        });
+      } else {
+        print('Failed to load teasers');
+      }
+    } catch (error) {
+      print('Error fetching teasers: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +85,10 @@ class TeaserScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => QuizScreen(
+                    builder: (context) => TeaseScreen(
                       categoryName: categoryName,
-                      questions: categoryQuestions[categoryName]!,
+                      questions: categoryQuestions[
+                          categoryName]!, // Passing the list of maps directly
                       currentQuestionIndex: 0,
                     ),
                   ),

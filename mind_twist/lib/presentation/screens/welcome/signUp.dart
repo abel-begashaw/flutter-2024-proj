@@ -1,182 +1,14 @@
+// lib/presentation/screens/welcome/sign_up_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mind_twist/presentation/screens/welcome/sign_up_cubit.dart';
 import 'package:mind_twist/presentation/widgets/constants.dart';
+import 'package:mind_twist/presentation/screens/welcome/sign_up_state.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
-
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignUpScreen> {
-  bool _rememberMe = false;
-  final _formKey = GlobalKey<FormState>();
-
-  Widget _buildUsernameTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            keyboardType: TextInputType.name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              hintText: 'Username',
-              hintStyle: kHintTextStyle,
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your username';
-              }
-              return null;
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            obscureText: true,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Password',
-              hintStyle: kHintTextStyle,
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your password';
-              }
-              return null;
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 25.0),
-      child: SizedBox(
-        height: 20.0,
-        child: Row(
-          children: <Widget>[
-            Theme(
-              data: ThemeData(unselectedWidgetColor: Colors.white),
-              child: Checkbox(
-                value: _rememberMe,
-                checkColor: Colors.green,
-                activeColor: Colors.white,
-                onChanged: (value) {
-                  setState(() {
-                    _rememberMe = value!;
-                  });
-                },
-              ),
-            ),
-            const Text(
-              'Remember me',
-              style: kLabelStyle,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignInBtn() {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 25.0),
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          elevation: 5.0,
-          padding: const EdgeInsets.all(15.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          backgroundColor: Colors.white,
-        ),
-        onPressed: () {
-          if (_formKey.currentState!.validate()) {
-            Navigator.pushReplacementNamed(context, 'frame');
-          }
-        },
-        child: const Text(
-          'SIGN UP',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignUpBtn() {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'frame'),
-      child: RichText(
-        text: const TextSpan(
-          children: [
-            TextSpan(
-              text: 'Have an Account? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: 'Sign In',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -212,36 +44,178 @@ class _SignInScreenState extends State<SignUpScreen> {
                     horizontal: 40.0,
                     vertical: 120.0,
                   ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'OpenSans',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                  child: BlocProvider(
+                    create: (context) => SignUpCubit(),
+                    child: BlocBuilder<SignUpCubit, SignUpState>(
+                      builder: (context, state) {
+                        return Form(
+                          key: context.read<SignUpCubit>().formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 30.0),
+                              _buildUsernameTF(context),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              _buildPasswordTF(context),
+                              _buildSignUpBtn(context),
+                              _buildSignInBtn(context),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 30.0),
-                        _buildUsernameTF(),
-                        const SizedBox(
-                          height: 30.0,
-                        ),
-                        _buildPasswordTF(),
-                        _buildRememberMeCheckbox(),
-                        _buildSignInBtn(),
-                        _buildSignUpBtn(),
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
               )
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUsernameTF(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            controller: context.read<SignUpCubit>().usernameController,
+            keyboardType: TextInputType.name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              hintText: 'Username',
+              hintStyle: kHintTextStyle,
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your username';
+              }
+              return null;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPasswordTF(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 10.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextFormField(
+            controller: context.read<SignUpCubit>().passwordController,
+            obscureText: true,
+            style: const TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Password',
+              hintStyle: kHintTextStyle,
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSignUpBtn(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          elevation: 5.0,
+          padding: const EdgeInsets.all(15.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          backgroundColor: Colors.white,
+        ),
+        onPressed: () {
+          if (context.read<SignUpCubit>().formKey.currentState!.validate()) {
+            context.read<SignUpCubit>().signUp();
+          }
+        },
+        child: const Text(
+          'SIGN UP',
+          style: TextStyle(
+            color: Color(0xFF527DAA),
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSignInBtn(BuildContext context) {
+    return GestureDetector(
+      onTap: () => context.goNamed('signin'),
+      child: RichText(
+        text: const TextSpan(
+          children: [
+            TextSpan(
+              text: 'Have an Account? ',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            TextSpan(
+              text: 'Sign In',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
