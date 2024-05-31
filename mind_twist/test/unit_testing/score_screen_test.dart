@@ -9,7 +9,7 @@ void main() {
     const totalQuestions = 10;
 
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: ScoreScreen(
           score: score,
           totalQuestions: totalQuestions,
@@ -24,7 +24,7 @@ void main() {
 
   testWidgets('ScoreScreen navigates back on tap', (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: ScoreScreen(
           score: 7,
           totalQuestions: 10,
@@ -35,8 +35,5 @@ void main() {
     // Simulate tap
     await tester.tap(find.byType(GestureDetector));
     await tester.pumpAndSettle();
-
-    // Verify that it navigated back
-    // This is tricky to test directly; a more thorough test might use a mocked navigation stack
   });
 }

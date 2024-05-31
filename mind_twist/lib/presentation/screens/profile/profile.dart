@@ -50,6 +50,16 @@ class _ProfilePageState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 158, 152, 199),
+        leading: IconButton(
+          onPressed: () {
+            context.go('/home');
+          },
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 120, 113, 170),
       body: Column(
         children: [

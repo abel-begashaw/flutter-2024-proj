@@ -38,9 +38,16 @@ dependencies:
   shared_preferences: ^2.2.3
   flutter_bloc: ^8.1.5
   go_router: ^14.1.4
+  bloc_test: ^9.1.7
+  mockito: ^5.4.4
+  build_runner: ^2.4.9
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -64,7 +71,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/Images/brain.jpg

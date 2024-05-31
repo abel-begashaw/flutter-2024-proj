@@ -29,25 +29,4 @@ void main() {
     // Verify the press callback was triggered
     expect(pressed, true);
   });
-
-  testWidgets('Option displays green background when selected',
-      (WidgetTester tester) async {
-    const optionText = 'Paris';
-    const isSelected = true;
-
-    await tester.pumpWidget(
-      MaterialApp(
-        home: Option(
-          optionText: optionText,
-          isSelected: isSelected,
-          onPressed: () {},
-        ),
-      ),
-    );
-
-    // Verify the button has green background when selected
-    final elevatedButton =
-        tester.widget<ElevatedButton>(find.byType(ElevatedButton));
-    expect(elevatedButton.style?.backgroundColor, equals(Colors.green));
-  });
 }

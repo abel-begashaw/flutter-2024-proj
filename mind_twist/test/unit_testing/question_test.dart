@@ -8,7 +8,7 @@ void main() {
     const questionText = 'What is the capital of France?';
 
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
         home: Question(questionText: questionText),
       ),
     );
